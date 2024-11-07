@@ -3,6 +3,8 @@ import 'package:test_run/pt_schedule_picker_widget/schedule_model.dart';
 import 'package:test_run/pt_schedule_picker_widget/schedule_picker_controller.dart';
 import 'package:test_run/pt_schedule_picker_widget/schedule_ratio_model.dart';
 
+import '../dummy data/dummy data.dart';
+
 class StaticTime extends StatelessWidget {
   final String time;
   final bool isAm;
@@ -218,6 +220,7 @@ class _TimeScheduleWidgetState extends State<TimeScheduleWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -294,7 +297,7 @@ class _TimeScheduleWidgetState extends State<TimeScheduleWidget> {
                           width: ((size.width - 30) * (e.endPercent / 100)) - (size.width - 30) * (e.startPercent / 100),
                           height: 30,
                           decoration: BoxDecoration(
-                            color: e.viewModeOn &&  e.bookedStatus! ? Colors.green: Colors.transparent,
+                            color: e.viewModeOn &&  e.bookedStatus! ? customGreen: Colors.transparent,
                           ),
                         );
                       },
@@ -313,7 +316,7 @@ class _TimeScheduleWidgetState extends State<TimeScheduleWidget> {
                 if(e.viewModeOn)
                   {
                     return Padding(
-                      padding: const EdgeInsets.only(right: 10),
+                      padding: const EdgeInsets.only(right: 6),
                       child: ClipRect(
                         clipBehavior: Clip.hardEdge,
                         child: InkWell(
@@ -322,10 +325,12 @@ class _TimeScheduleWidgetState extends State<TimeScheduleWidget> {
                           },
                           child: Chip(
                             clipBehavior: Clip.hardEdge,
+                            padding: EdgeInsets.symmetric(vertical: 5,horizontal: 5),
                             label: Text(
-                              "${e.dateTimeRange!.start.hour}:${e.dateTimeRange!.start.minute}",
+                              getCurrentTimeIn12HourFormat(dateTime:  e.dateTimeRange!.start),
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black),
                             ),
-                            backgroundColor: e.bookedStatus!? Colors.green.withOpacity(1): Colors.transparent,
+                            backgroundColor: e.bookedStatus!? customGreen: Colors.transparent,
                           ),
                         ),
                       ),
